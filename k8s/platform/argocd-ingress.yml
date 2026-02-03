@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-ingress
+  namespace: argocd
+  annotations:
+    # Wichtig für Traefik: Wir sagen, dass das Ziel (ArgoCD) HTTPS spricht
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  rules:
+  - host: argocd.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argocd-server
+            port:
+              name: https
+  # Dieser Block aktiviert HTTPS für den Browser (mit dem Standard Traefik Zertifikat)
+  tls:
+  - hosts:
+    - argocd.local
