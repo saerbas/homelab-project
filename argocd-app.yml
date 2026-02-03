@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mein-nginx-projekt
+  namespace: argocd
+spec:
+  project: default
+  # 1. Code ressource
+  source:
+    repoURL: https://github.com/saerbas/homelab-project.git
+    targetRevision: main
+    path: k8s/nginx-demo  
+
+  # 2. Target Cluster & Namespace
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  # 3. Sync Policy
+  syncPolicy:
+    automated:
+      prune: true      # delete resources that are no longer defined in Git
+      selfHeal: true   # reapply resources if they are changed in the cluster
+    syncOptions:
+      - CreateNamespace=true
