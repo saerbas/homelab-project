@@ -1,0 +1,66 @@
+---
+- name: Setup Server and Security Configurations
+  hosts: all
+  become: yes
+  vars:
+    ssh_port: 22  # Default SSH port; change if necessary 
+
+  tasks:
+    - name: Update apt cache and upgrade system
+      apt:
+        update_cache: yes
+        upgrade: dist
+        cache_valid_time: 3600
+
+    - name: Install essential packages
+      apt:
+        name:
+          - git
+          - curl
+          - htop
+          - net-tools
+          - ufw
+          - fail2ban
+        state: present
+
+    # configure UFW firewall
+    - name: Black all incoming connections by default
+      ufw:
+        state: enabled
+        policy: deny
+        direction: incoming
+
+    - name: Allow ssh connections (port 22)
+      ufw:
+        rule: allow
+        port: "{{ ssh_port }}"
+        proto: tcp
+
+    # Important: Port for Kubernetes API
+    - name: Allow Kubernetes port (6443)
+      ufw:
+        rule: allow
+        port: 6443
+        proto: tcp
+    
+    # 4. SSH be harder (Security!)
+    - name: SSH - Deactivate Password Login (Only Key-Auth)
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+      notify: Restart SSH
+
+    - name: SSH - Deactivate Root Login
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PermitRootLogin'
+        line: 'PermitRootLogin no'
+      notify: Restart SSH
+
+  # Handler to restart SSH service if config changed  
+  handlers:
+    - name: Restart SSH
+      service:
+        name: ssh
+        state: restarted
