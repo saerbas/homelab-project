@@ -4,7 +4,10 @@ metadata:
   name: argocd-server-ingress
   namespace: argocd
   annotations:
-    # Wichtig für Traefik: Wir sagen, dass das Ziel (ArgoCD) HTTPS spricht
+    # WICHTIG: Wir sagen Traefik, dass das Backend HTTPS spricht
+    traefik.ingress.kubernetes.io/service.serversscheme: https
+    # Wir sagen Traefik: "Egal ob das Zertifikat von ArgoCD selbstgebastelt ist, akzeptiere es."
+    traefik.ingress.kubernetes.io/service.noverifyssl: "true"
     traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
@@ -17,8 +20,7 @@ spec:
           service:
             name: argocd-server
             port:
-              name: https
-  # Dieser Block aktiviert HTTPS für den Browser (mit dem Standard Traefik Zertifikat)
+              number: 80   # <--- Wir gehen wieder auf den sicheren Port!
   tls:
   - hosts:
     - argocd.local
