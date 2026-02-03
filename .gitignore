@@ -1,0 +1,16 @@
+# --- Ansible ---
+ansible/inventory.ini
+ansible/*.retry
+
+# --- Kubernetes Secrets ---
+k3s_kubeconfig
+*.kubeconfig
+
+# --- Terraform (Ganz wichtig für später!) ---
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+
+# --- OS Files ---
+.DS_Store
