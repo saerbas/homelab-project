@@ -28,11 +28,7 @@ spec:
         volumeMounts:
         # Wir laden die Configs an den Ort, wo Homepage sie erwartet
         - name: config
-          mountPath: /app/config/settings.yaml
-          subPath: settings.yaml
-        - name: config
-          mountPath: /app/config/services.yaml
-          subPath: services.yaml
+          mountPath: /app/config
       volumes:
       - name: config
         configMap:
