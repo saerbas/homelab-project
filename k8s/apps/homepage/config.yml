@@ -24,9 +24,9 @@ data:
           href: http://192.168.2.165:8080  # (Optional, falls wir das Dashboard aktivieren)
           description: Ingress Controller
 
-bookmarks.yaml: ""
-widgets.yaml: ""
-docker.yaml: ""
-kubernetes.yaml: ""
+bookmarks.yaml: "[]"
+widgets.yaml: "[]"
+docker.yaml: "{}"
+kubernetes.yaml: "{}"
 custom.css: ""
 custom.js: ""
