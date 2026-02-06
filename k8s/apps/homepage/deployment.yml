@@ -13,6 +13,8 @@ spec:
       labels:
         app: homepage
     spec:
+      # HIER ist die neue Zeile:
+      serviceAccountName: homepage
       containers:
       - name: homepage
         image: ghcr.io/gethomepage/homepage:latest
@@ -23,14 +25,13 @@ spec:
             value: "homepage.local,127.0.0.1,localhost,192.168.0.0/16"
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
+            cpu: 100m
+            memory: 128Mi
           limits:
-            memory: "256Mi"
-            cpu: "500m"
+            cpu: 500m
+            memory: 512Mi
         volumeMounts:
-        # Jetzt legen wir jede Datei einzeln rein (subPath).
-        # Das ist sicherer für die Rechteverwaltung im Container.
+        # (Der Rest bleibt genau wie vorher...)
         - name: config
           mountPath: /app/config/settings.yaml
           subPath: settings.yaml
@@ -53,15 +54,3 @@ spec:
       - name: config
         configMap:
           name: homepage-config
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: homepage
-  namespace: default
-spec:
-  selector:
-    app: homepage
-  ports:
-  - port: 80
-    targetPort: 3000

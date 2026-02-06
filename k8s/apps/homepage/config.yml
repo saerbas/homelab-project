@@ -23,9 +23,20 @@ data:
           href: http://192.168.2.165:8080
           description: Ingress Controller
 
+  widgets.yaml: |
+    - resources:
+        cpu: true
+        memory: true
+        disk: /
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true        
+
   # Nicht vergessen: Die leeren Listen müssen bleiben!
   bookmarks.yaml: "[]"
-  widgets.yaml: "[]"
   docker.yaml: "{}"
   kubernetes.yaml: "{}"
   custom.css: ""
