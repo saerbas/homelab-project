@@ -10,20 +10,12 @@ data:
       Main:
         style: row
         columns: 3
-
   services.yaml: |
     - Infrastruktur:
       - ArgoCD:
           icon: argocd.png
           href: https://argocd.local
           description: GitOps Zentrale
-      - Traefik:
-          icon: traefik.png
-          href: http://192.168.2.165:8080
-          description: Ingress Controller
-
-  # WICHTIG: Wir schreiben "[]" (leere Liste) oder "{}" (leeres Objekt) rein.
-  # Leere Strings ("") führen zum Absturz!
   bookmarks.yaml: "[]"
   widgets.yaml: "[]"
   docker.yaml: "{}"

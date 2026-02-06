@@ -19,7 +19,6 @@ spec:
         ports:
         - containerPort: 3000
         env:
-          # Hier erlauben wir den Zugriff über die URL
           - name: HOMEPAGE_ALLOWED_HOSTS
             value: "homepage.local,127.0.0.1,localhost,192.168.0.0/16"
         resources:
@@ -30,9 +29,26 @@ spec:
             memory: "256Mi"
             cpu: "500m"
         volumeMounts:
-        # Wir laden die Configs an den Ort, wo Homepage sie erwartet
+        # Jetzt legen wir jede Datei einzeln rein (subPath).
+        # Das ist sicherer für die Rechteverwaltung im Container.
         - name: config
-          mountPath: /apps/config
+          mountPath: /app/config/settings.yaml
+          subPath: settings.yaml
+        - name: config
+          mountPath: /app/config/services.yaml
+          subPath: services.yaml
+        - name: config
+          mountPath: /app/config/bookmarks.yaml
+          subPath: bookmarks.yaml
+        - name: config
+          mountPath: /app/config/widgets.yaml
+          subPath: widgets.yaml
+        - name: config
+          mountPath: /app/config/docker.yaml
+          subPath: docker.yaml
+        - name: config
+          mountPath: /app/config/kubernetes.yaml
+          subPath: kubernetes.yaml
       volumes:
       - name: config
         configMap:
