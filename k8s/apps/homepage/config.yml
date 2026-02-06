@@ -10,12 +10,20 @@ data:
       Main:
         style: row
         columns: 3
+
   services.yaml: |
     - Infrastruktur:
       - ArgoCD:
-          icon: argocd.png
+          # Wir nutzen einen direkten Link zum Icon (GitHub CDN)
+          icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/argocd.png
           href: https://argocd.local
           description: GitOps Zentrale
+      - Traefik:
+          icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/traefik.png
+          href: http://192.168.178.50:8080
+          description: Ingress Controller
+
+  # Nicht vergessen: Die leeren Listen müssen bleiben!
   bookmarks.yaml: "[]"
   widgets.yaml: "[]"
   docker.yaml: "{}"
