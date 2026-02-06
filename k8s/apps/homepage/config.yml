@@ -4,7 +4,6 @@ metadata:
   name: homepage-config
   namespace: default
 data:
-  # Das ist die Haupt-Konfiguration von "Homepage"
   settings.yaml: |
     title: Mein HomeLab
     layout:
@@ -12,7 +11,6 @@ data:
         style: row
         columns: 3
 
-  # Hier definieren wir unsere Links
   services.yaml: |
     - Infrastruktur:
       - ArgoCD:
@@ -21,12 +19,14 @@ data:
           description: GitOps Zentrale
       - Traefik:
           icon: traefik.png
-          href: http://192.168.2.165:8080  # (Optional, falls wir das Dashboard aktivieren)
+          href: http://192.168.2.165:8080
           description: Ingress Controller
 
-bookmarks.yaml: "[]"
-widgets.yaml: "[]"
-docker.yaml: "{}"
-kubernetes.yaml: "{}"
-custom.css: ""
-custom.js: ""
+  # WICHTIG: Wir schreiben "[]" (leere Liste) oder "{}" (leeres Objekt) rein.
+  # Leere Strings ("") führen zum Absturz!
+  bookmarks.yaml: "[]"
+  widgets.yaml: "[]"
+  docker.yaml: "{}"
+  kubernetes.yaml: "{}"
+  custom.css: ""
+  custom.js: ""
