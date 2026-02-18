@@ -14,28 +14,23 @@ data:
   services.yaml: |
     - Infrastruktur:
       - ArgoCD:
-          # Wir nutzen einen direkten Link zum Icon (GitHub CDN)
           icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/argocd.png
           href: https://argocd.local
           description: GitOps Zentrale
       - Traefik:
           icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/traefik.png
-          href: http://192.168.2.165:8080
+          href: http://192.168.178.50:8080
           description: Ingress Controller
 
+  # HIER IST DIE ÄNDERUNG:
+  # Wir lassen nur "resources" (System CPU/RAM) drin.
+  # Den "kubernetes"-Block löschen wir vorerst, bis der Metrics-Server stabil ist.
   widgets.yaml: |
     - resources:
         cpu: true
         memory: true
         disk: /
-    - kubernetes:
-        cluster:
-          show: true
-          cpu: true
-          memory: true
-          showLabel: true        
 
-  # Nicht vergessen: Die leeren Listen müssen bleiben!
   bookmarks.yaml: "[]"
   docker.yaml: "{}"
   kubernetes.yaml: "{}"
