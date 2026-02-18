@@ -19,7 +19,7 @@ data:
           description: GitOps Zentrale
       - Traefik:
           icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/traefik.png
-          href: 192.168.2.165:8080
+          href: http://192.168.2.165:8080
           description: Ingress Controller
 
   # HIER IST DIE ÄNDERUNG:
